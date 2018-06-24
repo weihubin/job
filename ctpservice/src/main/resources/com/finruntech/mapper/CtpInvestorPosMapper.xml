@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finrun.trading.mapper.CtpInvestorPosMapper">
+
+    <insert id="insert" parameterType="com.finrun.trading.model.CtpInvestorPos">
+        insert into CTP_INVESTOR_POS (
+            instrument_Id,
+            broker_Id,
+            investor_Id,
+            posi_Direction,
+            hedge_Flag,
+            position_Date,
+            yd_Position,
+            position,
+            long_Frozen,
+            short_Frozen,
+            long_Frozen_Amount,
+            short_Frozen_Amount,
+            open_Volume,
+            close_Volume,
+            open_Amount,
+            close_Amount,
+            position_Cost,
+            pre_Margin,
+            use_Margin,
+            frozen_Margin,
+            frozen_Cash,
+            frozen_Commission,
+            cash_In,
+            commission,
+            close_Profit,
+            position_Profit,
+            pre_Settlement_Price,
+            settlement_Price,
+            trading_Day,
+            settlement_ID,
+            open_Cost,
+            exchange_Margin,
+            comb_Position,
+            comb_Long_Frozen,
+            comb_Short_Frozen,
+            close_Profit_By_Date,
+            close_Profit_By_Trade,
+            today_Position,
+            margin_Rate_By_Money,
+            margin_Rate_By_Volume,
+            strike_Frozen,
+            strike_Frozen_Amount,
+            abandon_Frozen
+        ) values(
+            #{instrumentId,jdbcType=VARCHAR},
+            #{brokerId,jdbcType=VARCHAR},
+            #{investorId,jdbcType=VARCHAR},
+            #{posiDirection,jdbcType=CHAR},
+            #{hedgeFlag,jdbcType=CHAR},
+            #{positionDate,jdbcType=CHAR},
+            #{ydPosition,jdbcType=DECIMAL},
+            #{position,jdbcType=DECIMAL},
+            #{longFrozen,jdbcType=DECIMAL},
+            #{shortFrozen,jdbcType=DECIMAL},
+            #{longFrozenAmount,jdbcType=DECIMAL},
+            #{shortFrozenAmount,jdbcType=DECIMAL},
+            #{openVolume,jdbcType=DECIMAL},
+            #{closeVolume,jdbcType=DECIMAL},
+            #{openAmount,jdbcType=DECIMAL},
+            #{closeAmount,jdbcType=DECIMAL},
+            #{positionCost,jdbcType=DECIMAL},
+            #{preMargin,jdbcType=DECIMAL},
+            #{useMargin,jdbcType=DECIMAL},
+            #{frozenMargin,jdbcType=DECIMAL},
+            #{frozenCash,jdbcType=DECIMAL},
+            #{frozenCommission,jdbcType=DECIMAL},
+            #{cashIn,jdbcType=DECIMAL},
+            #{commission,jdbcType=DECIMAL},
+            #{closeProfit,jdbcType=DECIMAL},
+            #{positionProfit,jdbcType=DECIMAL},
+            #{preSettlementPrice,jdbcType=DECIMAL},
+            #{settlementPrice,jdbcType=DECIMAL},
+            #{tradingDay,jdbcType=CHAR},
+            #{settlementId,jdbcType=DECIMAL},
+            #{openCost,jdbcType=DECIMAL},
+            #{exchangeMargin,jdbcType=DECIMAL},
+            #{combPosition,jdbcType=DECIMAL},
+            #{combLongFrozen,jdbcType=DECIMAL},
+            #{combShortFrozen,jdbcType=DECIMAL},
+            #{closeProfitByDate,jdbcType=DECIMAL},
+            #{closeProfitByTrade,jdbcType=DECIMAL},
+            #{todayPosition,jdbcType=DECIMAL},
+            #{marginRateByMoney,jdbcType=DECIMAL},
+            #{marginRateByVolume,jdbcType=DECIMAL},
+            #{strikeFrozen,jdbcType=DECIMAL},
+            #{strikeFrozenAmount,jdbcType=DECIMAL},
+            #{abandonFrozen,jdbcType=DECIMAL}
+        )
+    </insert>
+
+    <select id="qryCountByPrimKey" parameterType="com.finrun.trading.model.CtpInvestorPos" resultType="java.lang.Integer">
+        SELECT
+          count(1)
+        FROM
+          CTP_INVESTOR_POS
+        <include refid="primKeyWhereClause"/>
+    </select>
+
+    <update id="updateAllByPrimKey" parameterType="com.finrun.trading.model.CtpInvestorPos">
+        update
+          CTP_INVESTOR_POS
+        set
+            instrument_Id = #{instrumentId,jdbcType=VARCHAR},
+            broker_Id = #{brokerId,jdbcType=VARCHAR},
+            investor_Id = #{investorId,jdbcType=VARCHAR},
+            posi_Direction = #{posiDirection,jdbcType=CHAR},
+            hedge_Flag = #{hedgeFlag,jdbcType=CHAR},
+            position_Date = #{positionDate,jdbcType=CHAR},
+            yd_Position = #{ydPosition,jdbcType=DECIMAL},
+            position = #{position,jdbcType=DECIMAL},
+            long_Frozen = #{longFrozen,jdbcType=DECIMAL},
+            short_Frozen = #{shortFrozen,jdbcType=DECIMAL},
+            long_Frozen_Amount = #{longFrozenAmount,jdbcType=DECIMAL},
+            short_Frozen_Amount = #{shortFrozenAmount,jdbcType=DECIMAL},
+            open_Volume = #{openVolume,jdbcType=DECIMAL},
+            close_Volume = #{closeVolume,jdbcType=DECIMAL},
+            open_Amount = #{openAmount,jdbcType=DECIMAL},
+            close_Amount = #{closeAmount,jdbcType=DECIMAL},
+            position_Cost = #{positionCost,jdbcType=DECIMAL},
+            pre_Margin = #{preMargin,jdbcType=DECIMAL},
+            use_Margin = #{useMargin,jdbcType=DECIMAL},
+            frozen_Margin = #{frozenMargin,jdbcType=DECIMAL},
+            frozen_Cash = #{frozenCash,jdbcType=DECIMAL},
+            frozen_Commission = #{frozenCommission,jdbcType=DECIMAL},
+            cash_In = #{cashIn,jdbcType=DECIMAL},
+            commission = #{commission,jdbcType=DECIMAL},
+            close_Profit = #{closeProfit,jdbcType=DECIMAL},
+            position_Profit = #{positionProfit,jdbcType=DECIMAL},
+            pre_Settlement_Price = #{preSettlementPrice,jdbcType=DECIMAL},
+            settlement_Price = #{settlementPrice,jdbcType=DECIMAL},
+            trading_Day = #{tradingDay,jdbcType=CHAR},
+            settlement_ID = #{settlementId,jdbcType=DECIMAL},
+            open_Cost = #{openCost,jdbcType=DECIMAL},
+            exchange_Margin = #{exchangeMargin,jdbcType=DECIMAL},
+            comb_Position = #{combPosition,jdbcType=DECIMAL},
+            comb_Long_Frozen = #{combLongFrozen,jdbcType=DECIMAL},
+            comb_Short_Frozen = #{combShortFrozen,jdbcType=DECIMAL},
+            close_Profit_By_Date = #{closeProfitByDate,jdbcType=DECIMAL},
+            close_Profit_By_Trade = #{closeProfitByTrade,jdbcType=DECIMAL},
+            today_Position = #{todayPosition,jdbcType=DECIMAL},
+            margin_Rate_By_Money = #{marginRateByMoney,jdbcType=DECIMAL},
+            margin_Rate_By_Volume = #{marginRateByVolume,jdbcType=DECIMAL},
+            strike_Frozen = #{strikeFrozen,jdbcType=DECIMAL},
+            strike_Frozen_Amount = #{strikeFrozenAmount,jdbcType=DECIMAL},
+            abandon_Frozen = #{abandonFrozen,jdbcType=DECIMAL}
+        <include refid="primKeyWhereClause"/>
+    </update>
+
+    <sql id="primKeyWhereClause">
+        <where>
+            instrument_Id = #{instrumentId,jdbcType=VARCHAR}
+            AND broker_Id = #{brokerId,jdbcType=VARCHAR}
+            AND investor_Id = #{investorId,jdbcType=VARCHAR}
+            AND posi_Direction = #{posiDirection,jdbcType=CHAR}
+            AND hedge_Flag = #{hedgeFlag,jdbcType=CHAR}
+            AND position_Date = #{positionDate,jdbcType=CHAR}
+            AND trading_Day = #{tradingDay,jdbcType=CHAR}
+        </where>
+    </sql>
+
+</mapper>

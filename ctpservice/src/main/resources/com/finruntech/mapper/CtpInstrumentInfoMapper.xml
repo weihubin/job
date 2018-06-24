@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finrun.trading.mapper.CtpInstrumentInfoMapper" >
+
+    <insert id="insert" parameterType="com.finrun.trading.model.CtpInstrumentInfo">
+        insert into CTP_INSTRUMENT_INFO (
+            instrument_Id,
+            exchange_Id,
+            instrument_Name,
+            exchange_Inst_Id,
+            product_Id,
+            product_Class,
+            delivery_Year,
+            delivery_Month,
+            max_Market_Order_Volume,
+            min_Market_Order_Volume,
+            max_Limit_Order_Volume,
+            min_Limit_Order_Volume,
+            volume_Multiple,
+            price_Tick,
+            create_Date,
+            open_Date,
+            expire_Date,
+            start_Deliv_Date,
+            end_Deliv_Date,
+            inst_Life_Phase,
+            is_trading,
+            position_Type,
+            position_Date_Type,
+            long_Margin_Ratio,
+            short_Margin_Ratio,
+            max_Margin_Side_Algorithm,
+            underlying_Instr_ID,
+            strike_Price,
+            options_Type,
+            underlying_Multiple,
+            combination_Type
+        ) values(
+            #{instrumentId,jdbcType=VARCHAR},
+            #{exchangeId,jdbcType=VARCHAR},
+            #{instrumentName,jdbcType=VARCHAR},
+            #{exchangeInstId,jdbcType=VARCHAR},
+            #{productId,jdbcType=VARCHAR},
+            #{productClass,jdbcType=CHAR},
+            #{deliveryYear,jdbcType=CHAR},
+            #{deliveryMonth,jdbcType=CHAR},
+            #{maxMarketOrderVolume,jdbcType=DECIMAL},
+            #{minMarketOrderVolume,jdbcType=DECIMAL},
+            #{maxLimitOrderVolume,jdbcType=DECIMAL},
+            #{minLimitOrderVolume,jdbcType=DECIMAL},
+            #{volumeMultiple,jdbcType=DECIMAL},
+            #{priceTick,jdbcType=DECIMAL},
+            #{createDate,jdbcType=CHAR},
+            #{openDate,jdbcType=CHAR},
+            #{expireDate,jdbcType=CHAR},
+            #{startDelivDate,jdbcType=CHAR},
+            #{endDelivDate,jdbcType=CHAR},
+            #{instLifePhase,jdbcType=CHAR},
+            #{isTrading,jdbcType=DECIMAL},
+            #{positionType,jdbcType=CHAR},
+            #{positionDateType,jdbcType=CHAR},
+            #{longMarginRatio,jdbcType=DECIMAL},
+            #{shortMarginRatio,jdbcType=DECIMAL},
+            #{maxMarginSideAlgorithm,jdbcType=CHAR},
+            #{underlyingInstrId,jdbcType=VARCHAR},
+            #{strikePrice,jdbcType=DECIMAL},
+            #{optionsType,jdbcType=CHAR},
+            #{underlyingMultiple,jdbcType=DECIMAL},
+            #{combinationType,jdbcType=CHAR}
+        )
+    </insert>
+
+    <delete id="deleteAll">
+        DELETE from CTP_INSTRUMENT_INFO
+    </delete>
+
+
+    <select id="qryInstrumentInfoById" parameterType="java.lang.String" resultType="com.finrun.trading.model.CtpInstrumentInfo">
+        select
+            instrument_Id as instrumentId,
+            exchange_Id as exchangeId,
+            instrument_Name as instrumentName,
+            exchange_Inst_Id as exchangeInstId,
+            product_Id as productId,
+            product_Class as productClass,
+            delivery_Year as deliveryYear,
+            delivery_Month as deliveryMonth,
+            max_Market_Order_Volume as maxMarketOrderVolume,
+            min_Market_Order_Volume as minMarketOrderVolume,
+            max_Limit_Order_Volume as maxLimitOrderVolume,
+            min_Limit_Order_Volume as minLimitOrderVolume,
+            volume_Multiple as volumeMultiple,
+            price_Tick as priceTick,
+            create_Date as createDate,
+            open_Date as openDate,
+            expire_Date as expireDate,
+            start_Deliv_Date as startDelivDate,
+            end_Deliv_Date as endDelivDate,
+            inst_Life_Phase as instLifePhase,
+            is_trading as isTrading,
+            position_Type as positionType,
+            position_Date_Type as positionDateType,
+            long_Margin_Ratio as longMarginRatio,
+            short_Margin_Ratio as shortMarginRatio,
+            max_Margin_Side_Algorithm as maxMarginSideAlgorithm,
+            underlying_Instr_ID as underlyingInstrId,
+            strike_Price as strikePrice,
+            options_Type as optionsType,
+            underlying_Multiple as underlyingMultiple,
+            combination_Type as combinationType
+        from CTP_INSTRUMENT_INFO
+        <where>
+            INSTRUMENT_ID = #{instrumentId,jdbcType=VARCHAR}
+        </where>
+    </select>
+
+</mapper>

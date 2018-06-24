@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>CTP行情推送</title>
+    <script th:src="@{js/sockjs.min.js}"></script>
+    <script th:src="@{js/stomp.js}"></script>
+    <script th:src="@{js/jquery-3.1.1.js}"></script>
+    <script th:src="@{js/subscribe.js}"></script>
+    <script th:src="@{js/vue.min.js}"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="conversationDiv">
+            <!--  <label>输入合约</label><input type="text" id="instrument"/>
+            <p id="response"></p> -->
+        </div>
+
+        <div>
+            <div>
+                <!-- 交易所列表-->
+                <select v-model="exchangeName">
+                    <option v-for="option in exchangeList" v-bind:value="option.value" >{{option.text}}</option>
+                </select>
+
+                <select v-model="selInstrumentId">
+                    <option v-for="option in instrumentList" v-bind:value="option.value">{{option.text}}</option>
+                </select>
+
+                <button id="subscribe" onclick="sendSubscribe();">订阅</button>
+
+            </div>
+
+            <div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>合约代码</th>
+                        <th>最新价</th>
+                        <th>今开盘</th>
+                        <th>最高价</th>
+                        <th>最低价</th>
+                        <th>最后修改时间</th>
+                        <th>最后修改毫秒</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="marketData in marketDataObj">
+                            <td>{{ marketData.instrumentId }}</td>
+                            <td>{{ marketData.lastPrice }}</td>
+                            <td>{{ marketData.openPrice }}</td>
+                            <td>{{ marketData.highestPrice }}</td>
+                            <td>{{ marketData.lowestPrice }}</td>
+                            <td>{{ marketData.updateTime }}</td>
+                            <td>{{ marketData.updateMilliSec }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var socket = null;
+        $(document).ready(function(){
+            console.log("init we");
+            initWebSoceket(getSendData());
+        })
+        function initWebSoceket(instruments) {
+            var timer;
+            var url = 'ws://localhost:9002/ctpstream/websocket';
+            if('WebSocket' in window){
+                socket = new WebSocket(url);
+            }else {
+                alert('对不起，您的浏览器不支持websocket');
+            }
+            socket.onopen = function (event) {
+                console.log('websocket通道建立成功！');
+            }
+            socket.onerror = function (e) {
+                console.log('websocket发生错误！');
+            }
+
+            socket.onclose = function (e) {
+                console.log('websocket关闭连接。');
+            }
+            //收到数据
+            socket.onmessage = function (e) {
+                console.log('websocket onmessage, 收到推送'+ e.data);
+                if (isHeartbeatPing(e)) {
+                    //                    if (timer) $timeout.cancel(timer);
+                    //                    timer = $timeout(function () {
+                    //                        initWebsocket(getSendData());
+                    //                    }, 120000);
+                    console.log('websocket onmessage is heartbeat ping');
+                    return;
+                }
+                showResponse(e.data);
+            }
+        };
+
+        function showResponse(message) {
+            var jsonObj = JSON.parse(message);
+            if(!jsonObj.hasOwnProperty('success')){//行情数据
+                var instrumentId = jsonObj.instrumentId;
+                var showData = vm.marketDataObj;
+                showData[instrumentId] = jsonObj;
+                vm.marketDataObj = Object.assign({}, vm.marketDataObj, showData);
+            }
+        }
+        /**
+         * 行情订阅
+         */
+        function sendSubscribe() {
+            socket.send(JSON.stringify(getSendData()));
+        }
+
+        function getSendData() {
+            var subscribe = vm.selInstrumentId;
+            console.log('subscribe:' + subscribe);
+            var arr = new Array(subscribe);
+            arr[0] = subscribe;
+            var sendObj = new Object();
+            sendObj.instrumentIdList = arr;
+            return sendObj;
+        }
+
+        $(function () {
+            vm.exchangeChange();
+        });
+        //vue对象
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                marketDataObj:{},
+                exchangeList:[],
+                instrumentList:[] ,
+                exchangeName:'',
+                selInstrumentId:'',
+            },
+            mounted:function () {
+                var instrument_filter = function (obj) {
+                    return this.instrumentIds.indexOf(obj.value) > -1
+                }
+                this.instrument_obj = this.options.filter(instrument_filter, this);
+            },
+            methods:{
+                exchangeChange:function () {
+                    this.exchangeList.push(
+                        {text:'CFFEX', value:'CFFEX'},
+                        {text:'CZCE', value:'CZCE'},
+                        {text:'DCE', value:'DCE'},
+                        {text:'SHFE', value:'SHFE'},
+                        {text:'INE', value:'INE'}
+                    )
+                },
+
+                selecte_instrument:function (values) {
+                    this.instrumentIds = values.map(function (obj) {
+                        return obj.value;
+                    });
+                }
+
+            },
+            watch:{
+                exchangeName: function () {
+                    var exchange = vm.exchangeName;
+                    if('CFFEX' == exchange){
+                        this.instrumentList = Object.assign({}, this.instrumentList, [ {text:'T1806', value:'T1806'},
+                            {text:'T1809', value:'T1809'},
+                            {text:'TF1806', value:'TF1806'} ])
+                    }else if('CZCE' == exchange){
+                        this.instrumentList = Object.assign({}, this.instrumentList, [  {text:'TA902', value:'TA902'},
+                            {text:'TA901P5200', value:'TA901P5200'},
+                            {text:'TA901P5300', value:'TA901P5300'}  ])
+                    }else if('DCE' == exchange){
+                        this.instrumentList = Object.assign({}, this.instrumentList, [  {text:'v1806', value:'v1806'},
+                            {text:'y1808', value:'y1808'} ])
+                    }else if('SHFE' == exchange){
+
+                        this.instrumentList = Object.assign({}, this.instrumentList, [ {text:'cu1905', value:'cu1905'},
+                            {text:'cu1905C47000', value:'cu1905C47000'},
+                            {text:'fu1811', value:'fu1811'}  ])
+
+                    }else if('INE' == exchange){
+                        this.instrumentList = Object.assign({}, this.instrumentList, [ {text:'sc1806', value:'sc1806'},
+                            {text:'sc1807', value:'sc1807'},
+                            {text:'sc1808', value:'sc1808'},
+                            {text:'sc1809', value:'sc1809'} ])
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finrun.trading.mapper.CtpDealMsgMapper">
+
+    <insert id="insert" parameterType="com.finrun.trading.model.CtpDealMsg">
+        insert into CTP_DEAL_MSG (
+            broker_Id,
+            investor_Id,
+            instrument_Id,
+            order_Ref,
+            user_Id,
+            exchange_Id,
+            trade_ID,
+            direction,
+            order_Sys_Id,
+            participant_Id,
+            client_ID,
+            trading_Role,
+            exchange_Inst_ID,
+            offset_Flag,
+            hedge_Flag,
+            price,
+            volume,
+            trade_Date,
+            trade_Time,
+            trade_Type,
+            price_Source,
+            trader_ID,
+            order_Local_Id,
+            clearing_Part_ID,
+            business_Unit,
+            sequence_No,
+            trading_Day,
+            settlement_Id,
+            broker_Order_Seq,
+            trade_Source
+        ) values(
+            #{brokerId,jdbcType=VARCHAR},
+            #{investorId,jdbcType=VARCHAR},
+            #{instrumentId,jdbcType=VARCHAR},
+            #{orderRef,jdbcType=VARCHAR},
+            #{userId,jdbcType=VARCHAR},
+            #{exchangeId,jdbcType=VARCHAR},
+            #{tradeId,jdbcType=VARCHAR},
+            #{direction,jdbcType=CHAR},
+            #{orderSysId,jdbcType=VARCHAR},
+            #{participantId,jdbcType=VARCHAR},
+            #{clientId,jdbcType=VARCHAR},
+            #{tradingRole,jdbcType=CHAR},
+            #{exchangeInstId,jdbcType=VARCHAR},
+            #{offsetFlag,jdbcType=CHAR},
+            #{hedgeFlag,jdbcType=CHAR},
+            #{price,jdbcType=DECIMAL},
+            #{volume,jdbcType=DECIMAL},
+            #{tradeDate,jdbcType=CHAR},
+            #{tradeTime,jdbcType=CHAR},
+            #{tradeType,jdbcType=CHAR},
+            #{priceSource,jdbcType=CHAR},
+            #{traderId,jdbcType=VARCHAR},
+            #{orderLocalId,jdbcType=VARCHAR},
+            #{clearingPartId,jdbcType=VARCHAR},
+            #{businessUnit,jdbcType=VARCHAR},
+            #{sequenceNo,jdbcType=DECIMAL},
+            #{tradingDay,jdbcType=CHAR},
+            #{settlementId,jdbcType=DECIMAL},
+            #{brokerOrderSeq,jdbcType=DECIMAL},
+            #{tradeSource,jdbcType=CHAR}
+        )
+    </insert>
+
+</mapper>

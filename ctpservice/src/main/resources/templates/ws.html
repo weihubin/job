@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script th:src="@{js/vue.min.js}"></script>
+</head>
+<body>
+<div id="app">
+    <table>
+        <thead>
+        <tr>
+            <th>合约代码</th>
+            <th>最新价</th>
+            <th>今开盘</th>
+            <th>最高价</th>
+            <th>最低价</th>
+            <th>最后修改时间</th>
+            <th>最后修改毫秒</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr v-for="maketData in marketDataList">
+            <td>{{ maketData.instrumentId }}</td>
+            <td>{{ maketData.lastPrice }}</td>
+            <td>{{ maketData.openPrice }}</td>
+            <td>{{ maketData.highestPrice }}</td>
+            <td>{{ maketData.lowestPrice }}</td>
+            <td>{{ maketData.updateTime }}</td>
+            <td>{{ maketData.updateMilliSec }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue.js!',
+            marketDataList:[
+                {
+                    instrumentId:"TF106',
+                    lastPrice:'2',
+                    openPrice:'3',
+                    highestPrice:'3',
+                    lowestPrice:'',
+                    updateTime:'',
+                    updateMilliSec:'',
+                },
+                {
+                    instrumentId:'TF108',
+                    lastPrice:'2',
+                    openPrice:'3',
+                    highestPrice:'3',
+                    lowestPrice:'',
+                    updateTime:'',
+                    updateMilliSec:'',
+                }
+            ]
+        }
+    })
+</script>
+</body>
+</html>

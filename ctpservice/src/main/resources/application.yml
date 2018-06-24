@@ -1,0 +1,82 @@
+server:
+  port: 9002
+  context-path: /ctpstream
+
+
+  ##南华期货
+  #行情前置机地址=tcp://115.238.106.253:41213
+  #交易前置机地址=tcp://115.238.106.253:41205
+  #BrokerID=1008
+  #账户=90095451
+  #密码=090515
+ctp:
+    ctpMarketDataFrontAddress: tcp://115.238.106.253:41213
+    ctpTradeFrontAddress: tcp://115.238.106.253:41205
+    ctpBrokerID: 1008
+    ctpUserID: 90095451
+    #注意 090515 读取会变成 90515.0，所以改成如下写法
+    ctpPassword: "090515"
+  #
+  ##simnow
+  #行情前置机地址=tcp://180.168.146.187:10010
+  #交易前置机地址=tcp://180.168.146.187:10000
+  #BrokerID=9999
+  #账户=077809
+  #密码=w1234567
+  #
+  ##银河期货
+  #行情前置机地址=tcp://106.39.36.72:41213
+  #交易前置机地址=tcp://106.39.36.72:41205
+  #BrokerID=1010
+  #账户=212469
+  #密码=090515
+#    ctpTradeFrontAddress: tcp://106.39.36.72:41213
+#    ctpMarketDataFrontAddress: tcp://106.39.36.72:41205
+#    ctpBrokerID: 1010
+#    ctpUserID: 212469
+#    ctpPassword: "090515"
+
+
+#datasource config
+spring:
+  datasource:
+    druid:
+      url: jdbc:oracle:thin:@192.168.1.187:1521:ctpdb
+      username: ctptest
+      password: ctptest
+      driver-class-name: oracle.jdbc.OracleDriver
+      #Druid连接池配置
+      initial-size: 1
+      min-idle: 5
+      max-active: 20
+      max-wait: 10000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      #      max-open-prepared-statements= #和上面的等价
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 1000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+#      max-evictable-idle-time-millis:
+      filters: stat,wall,log4j #配置多个英文逗号分隔
+      filter:
+        config:
+          enabled: true
+      web-stat-filter:
+        enabled: true
+        session-stat-enable: true
+        session-stat-max-count: 1000
+        profile-enable: true
+      stat-view-servlet:
+        enabled: true
+        reset-enable: false
+        login-username: admin
+        login-password: admin
+
+#Mybatis配置
+mybatis:
+  type-aliases-package: com.finrun.trading.model
+  mapper-locations: classpath*:/com/finruntech/mapper/*Mapper.xml

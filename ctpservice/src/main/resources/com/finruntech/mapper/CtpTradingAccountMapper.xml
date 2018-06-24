@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finrun.trading.mapper.CtpTradingAccountMapper" >
+
+    <insert id="insert" parameterType="com.finrun.trading.model.CtpTradingAccount">
+        insert into CTP_TRADING_ACCOUNT (
+            broker_Id,
+            account_Id,
+            pre_Mortgage,
+            pre_Credit,
+            pre_Deposit,
+            pre_Balance,
+            pre_Margin,
+            interest_Base,
+            interest,
+            deposit,
+            withdraw,
+            frozen_Margin,
+            frozen_Cash,
+            frozen_Commission,
+            curr_Margin,
+            cash_In,
+            commission,
+            close_Profit,
+            position_Profit,
+            balance,
+            available,
+            withdraw_Quota,
+            reserve,
+            trading_Day,
+            settlement_Id,
+            credit,
+            mortgage,
+            exchange_Margin,
+            delivery_Margin,
+            exchange_Delivery_Margin,
+            reserve_Balance,
+            currency_Id,
+            pre_Fund_Mortgage_In,
+            pre_Fund_Mortgage_Out,
+            fund_Mortgage_In,
+            fund_Mortgage_Out,
+            fund_Mortgage_Available,
+            mortgageable_Fund,
+            spec_Prod_Margin,
+            spec_Prod_Frozen_Margin,
+            spec_Prod_Commission,
+            spec_Prod_Frozen_Commission,
+            spec_Prod_Position_Profit,
+            spec_Prod_Close_Profit,
+            spec_Prod_Position_ProfitByAlg,
+            spec_Prod_Exchange_Margin
+        ) values(
+            #{brokerId,jdbcType=VARCHAR},
+            #{accountId,jdbcType=VARCHAR},
+            #{preMortgage,jdbcType=DECIMAL},
+            #{preCredit,jdbcType=DECIMAL},
+            #{preDeposit,jdbcType=DECIMAL},
+            #{preBalance,jdbcType=DECIMAL},
+            #{preMargin,jdbcType=DECIMAL},
+            #{interestBase,jdbcType=DECIMAL},
+            #{interest,jdbcType=DECIMAL},
+            #{deposit,jdbcType=DECIMAL},
+            #{withdraw,jdbcType=DECIMAL},
+            #{frozenMargin,jdbcType=DECIMAL},
+            #{frozenCash,jdbcType=DECIMAL},
+            #{frozenCommission,jdbcType=DECIMAL},
+            #{currMargin,jdbcType=DECIMAL},
+            #{cashIn,jdbcType=DECIMAL},
+            #{commission,jdbcType=DECIMAL},
+            #{closeProfit,jdbcType=DECIMAL},
+            #{positionProfit,jdbcType=DECIMAL},
+            #{balance,jdbcType=DECIMAL},
+            #{available,jdbcType=DECIMAL},
+            #{withdrawQuota,jdbcType=DECIMAL},
+            #{reserve,jdbcType=DECIMAL},
+            #{tradingDay,jdbcType=CHAR},
+            #{settlementId,jdbcType=DECIMAL},
+            #{credit,jdbcType=DECIMAL},
+            #{mortgage,jdbcType=DECIMAL},
+            #{exchangeMargin,jdbcType=DECIMAL},
+            #{deliveryMargin,jdbcType=DECIMAL},
+            #{exchangeDeliveryMargin,jdbcType=DECIMAL},
+            #{reserveBalance,jdbcType=DECIMAL},
+            #{currencyId,jdbcType=CHAR},
+            #{preFundMortgageIn,jdbcType=DECIMAL},
+            #{preFundMortgageOut,jdbcType=DECIMAL},
+            #{fundMortgageIn,jdbcType=DECIMAL},
+            #{fundMortgageOut,jdbcType=DECIMAL},
+            #{fundMortgageAvailable,jdbcType=DECIMAL},
+            #{mortgageableFund,jdbcType=DECIMAL},
+            #{specProdMargin,jdbcType=DECIMAL},
+            #{specProdFrozenMargin,jdbcType=DECIMAL},
+            #{specProdCommission,jdbcType=DECIMAL},
+            #{specProdFrozenCommission,jdbcType=DECIMAL},
+            #{specProdPositionProfit,jdbcType=DECIMAL},
+            #{specProdCloseProfit,jdbcType=DECIMAL},
+            #{specProdPositionProfitbyalg,jdbcType=DECIMAL},
+            #{specProdExchangeMargin,jdbcType=DECIMAL}
+        )
+    </insert>
+
+
+    <select id="qryCountById" resultType="java.lang.Integer">
+        SELECT
+          COUNT(1)
+        FROM
+          CTP_TRADING_ACCOUNT
+        WHERE
+            broker_Id=#{brokerId,jdbcType=VARCHAR}
+            and account_Id=#{accountId,jdbcType=VARCHAR}
+    </select>
+
+
+    <update id="updateAllById" parameterType="com.finrun.trading.model.CtpTradingAccount">
+        update
+          CTP_TRADING_ACCOUNT
+        set
+            pre_Mortgage = #{preMortgage,jdbcType=DECIMAL},
+            pre_Credit = #{preCredit,jdbcType=DECIMAL},
+            pre_Deposit = #{preDeposit,jdbcType=DECIMAL},
+            pre_Balance = #{preBalance,jdbcType=DECIMAL},
+            pre_Margin = #{preMargin,jdbcType=DECIMAL},
+            interest_Base = #{interestBase,jdbcType=DECIMAL},
+            interest = #{interest,jdbcType=DECIMAL},
+            deposit = #{deposit,jdbcType=DECIMAL},
+            withdraw = #{withdraw,jdbcType=DECIMAL},
+            frozen_Margin = #{frozenMargin,jdbcType=DECIMAL},
+            frozen_Cash = #{frozenCash,jdbcType=DECIMAL},
+            frozen_Commission = #{frozenCommission,jdbcType=DECIMAL},
+            curr_Margin = #{currMargin,jdbcType=DECIMAL},
+            cash_In = #{cashIn,jdbcType=DECIMAL},
+            commission = #{commission,jdbcType=DECIMAL},
+            close_Profit = #{closeProfit,jdbcType=DECIMAL},
+            position_Profit = #{positionProfit,jdbcType=DECIMAL},
+            balance = #{balance,jdbcType=DECIMAL},
+            available = #{available,jdbcType=DECIMAL},
+            withdraw_Quota = #{withdrawQuota,jdbcType=DECIMAL},
+            reserve = #{reserve,jdbcType=DECIMAL},
+            trading_Day = #{tradingDay,jdbcType=CHAR},
+            settlement_Id = #{settlementId,jdbcType=DECIMAL},
+            credit = #{credit,jdbcType=DECIMAL},
+            mortgage = #{mortgage,jdbcType=DECIMAL},
+            exchange_Margin = #{exchangeMargin,jdbcType=DECIMAL},
+            delivery_Margin = #{deliveryMargin,jdbcType=DECIMAL},
+            exchange_Delivery_Margin = #{exchangeDeliveryMargin,jdbcType=DECIMAL},
+            reserve_Balance = #{reserveBalance,jdbcType=DECIMAL},
+            currency_Id = #{currencyId,jdbcType=CHAR},
+            pre_Fund_Mortgage_In = #{preFundMortgageIn,jdbcType=DECIMAL},
+            pre_Fund_Mortgage_Out = #{preFundMortgageOut,jdbcType=DECIMAL},
+            fund_Mortgage_In = #{fundMortgageIn,jdbcType=DECIMAL},
+            fund_Mortgage_Out = #{fundMortgageOut,jdbcType=DECIMAL},
+            fund_Mortgage_Available = #{fundMortgageAvailable,jdbcType=DECIMAL},
+            mortgageable_Fund = #{mortgageableFund,jdbcType=DECIMAL},
+            spec_Prod_Margin = #{specProdMargin,jdbcType=DECIMAL},
+            spec_Prod_Frozen_Margin = #{specProdFrozenMargin,jdbcType=DECIMAL},
+            spec_Prod_Commission = #{specProdCommission,jdbcType=DECIMAL},
+            spec_Prod_Frozen_Commission = #{specProdFrozenCommission,jdbcType=DECIMAL},
+            spec_Prod_Position_Profit = #{specProdPositionProfit,jdbcType=DECIMAL},
+            spec_Prod_Close_Profit = #{specProdCloseProfit,jdbcType=DECIMAL},
+            spec_Prod_Position_ProfitByAlg = #{specProdPositionProfitbyalg,jdbcType=DECIMAL},
+            spec_Prod_Exchange_Margin = #{specProdExchangeMargin,jdbcType=DECIMAL}
+          where
+             broker_Id=#{brokerId,jdbcType=VARCHAR}
+            and account_Id=#{accountId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>
